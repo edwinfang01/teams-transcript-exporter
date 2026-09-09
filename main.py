@@ -15,21 +15,19 @@ options.add_experimental_option("detach", True)
 user_data_dir = os.path.join(os.getcwd(), "chrome_profile")
 options.add_argument(f"--user-data-dir={user_data_dir}")
 
-TRANSCRIPT_URL = "https://unibedom-my.sharepoint.com/:v:/r/personal/a_almonte4_prof_unibe_edu_do/Documents/Grabaciones/Inicio%20de%20Clases%20Ingenier%C3%ADa%20de%20Factores%20Humanos-20260908_191212-Meeting%20Recording.mp4?d=wfef65232a6754c97b24611141356e856&csf=1&web=1&e=aoueXT&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D"
+TRANSCRIPT_URL = "your teams transcript url"
 driver = webdriver.Chrome(options=options)
 driver.get(TRANSCRIPT_URL)
 
-def wait_for_element(criteria: tuple[str, str], timeout=5):
+def wait_for_element(criteria: tuple[str, str], timeout=20):
     wait = WebDriverWait(driver=driver, timeout=timeout)
-    return wait.until(EC.visibility_of_element_located(criteria))
+    return wait.until(EC.element_to_be_clickable(criteria))
 
 wait_for_element((By.CSS_SELECTOR, "div[class='ms-List-cell']"))
-time.sleep(3)
+# time.sleep(3)
 
 entries = driver.find_elements(By.XPATH, "//div[starts-with(@id, 'entry-')]")
-entries_list = []
 entries_dict = {}
-n_of_entries = len(entries)
 last_entry = driver.find_elements(By.CSS_SELECTOR, "*[class*='lastListItem']")
 
 while len(last_entry) == 0 or ( last_entry and len(entries_dict.keys()) < int(last_entry[0].get_attribute("id").strip("listItem-")) ):
@@ -69,9 +67,7 @@ while len(last_entry) == 0 or ( last_entry and len(entries_dict.keys()) < int(la
 
     # wait_for_element((By.ID, f"{entries[-1].get_attribute("id")}"))
     entries: list[WebElement] = driver.find_elements(By.XPATH, "//div[starts-with(@id, 'entry-')]")
-    current_n_of_entries = len(entries)
-    print(f"current_n_of_entries: {current_n_of_entries}, n_of_entries: {n_of_entries}", entries[-1].get_attribute("id"))
-    n_of_entries = current_n_of_entries
+    print(f"current_n_of_entries: {len(entries_dict)}", entries[-1].get_attribute("id"))
     # time.sleep(1)
 
 # unique_entries = list({item["id"]: item for item in entries_list}.values())
