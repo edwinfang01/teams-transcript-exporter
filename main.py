@@ -1,5 +1,6 @@
 import os
 import time
+from pathlib import Path
 import pyclip
 from selenium import webdriver
 from selenium.common import StaleElementReferenceException, NoSuchElementException
@@ -16,6 +17,8 @@ user_data_dir = os.path.join(os.getcwd(), "chrome_profile")
 options.add_argument(f"--user-data-dir={user_data_dir}")
 
 TRANSCRIPT_URL = "your teams transcript url"
+FILE_NAME = "your transcript file name"
+SAVE_PATH = Path(rf"the path where you want to save your file eg. C:\Users\username\Downloads") / f"{FILE_NAME}.txt"
 driver = webdriver.Chrome(options=options)
 driver.get(TRANSCRIPT_URL)
 
@@ -92,3 +95,6 @@ transcript_string = transcript_string.strip()
 
 pyclip.copy(transcript_string)
 # print(transcript_string)
+
+with open(SAVE_PATH, "w", encoding="utf-8") as file:
+    file.write(transcript_string)
