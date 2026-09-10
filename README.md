@@ -4,7 +4,8 @@ A Python-based automation tool built with Selenium to streamline the process of 
 
 ## 🚀 Features
 * **Automated Extraction:** Scrapes and consolidates transcript blocks using Selenium WebDriver.
-* **Clipboard Integration:** Instantly copies the full consolidated transcript to your clipboard, ready to be pasted straight into your favorite note-taking app (Notion, Obsidian, Word, etc.).
+* **Direct File Export:** Automatically saves the transcripts as clean `.txt` files to a specified local directory using `pathlib`.
+* **Cross-Platform Path Handling:** Uses robust path definitions compatible with Windows, macOS, and Linux.
 
 ## 🛠️ Prerequisites
 Before running the script, ensure you have the following installed:
@@ -25,22 +26,27 @@ Before running the script, ensure you have the following installed:
    pip install -r requirements.txt
    ```
 
+## ⚙️ Configuration
+Open your script file and configure your target file name and local directory path:
+
+```python
+FILE_NAME = "your transcript file name"
+SAVE_PATH = Path(rf"the path where you want to save your file eg. C:\Users\username\Downloads") / f"{FILE_NAME}.txt"
+```
+
 ## 💻 Usage
 Run the main script to start the automation process:
 ```bash
 python main.py
 ```
-Once execution finishes, the complete transcript text will be waiting in your **clipboard**. Just press `Ctrl+V` (or `Cmd+V` on Mac) to paste it anywhere.
+Once the execution finishes, you will find your transcript text file saved automatically at your configured `SAVE_PATH`.
 
 ## 📅 Roadmap (Upcoming Features)
-* [ ] **Direct File Export:** Automatically save the transcripts as timestamped `.txt` and `.md` files without relying on the clipboard.
-
-## 🔒 Privacy & Security First
-This project strictly enforces credential isolation. 
-* **Never** hardcode your email or password in `main.py`.
-* Ensure that `.env`, `__pycache__/`, and any generated files are added to your `.gitignore` file before pushing any code to GitHub.
+* [ ] **Clipboard Integration:** Option to instantly copy the full consolidated transcript to your clipboard.
+* [ ] **Environment Variables (`.env`):** Move credentials and personal system paths out of the source code to keep local environments 100% private.
 
 ## ⚖️ Disclaimer
 This project was developed strictly for personal educational purposes, study assistance, and accessibility research. It is **not** affiliated with, authorized, or endorsed by Microsoft Corporation. 
 
 Users are entirely responsible for ensuring compliance with Microsoft Teams' Terms of Service, as well as the internal privacy policies and intellectual property guidelines of their respective academic institutions or workplaces. The developer assumes no liability for any misuse or policy violations resulting from this tool.
+
