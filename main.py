@@ -60,6 +60,7 @@ while len(last_entry) == 0 or ( last_entry and len(entries_dict.keys()) < int(la
         #                           driver.find_element(By.ID, f"entry-{list(entries_dict.keys())[-10]}"))
         #     wait_for_element((By.ID, f"entry-{list(entries_dict.keys())[-10]}"))
         # else:
+        time.sleep(0.2)
         driver.find_element(By.CSS_SELECTOR, "div[id^='listItem-']").send_keys(Keys.PAGE_DOWN)
 
         print(entries_dict.keys())
