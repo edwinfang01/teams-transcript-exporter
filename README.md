@@ -12,6 +12,7 @@ Before running the script, ensure you have the following installed:
 * Python 3.8 or higher
 * Google Chrome (or Microsoft Edge)
 * A matching version of WebDriver (automatically handled if using `webdriver-manager` or configured locally)
+* **Instant Clipboard Sync:** Simultaneously copies the full consolidated transcript to your clipboard the moment it finishes, ready to be pasted straight into your favorite note-taking app (Notion, Obsidian, Word, etc.).
 
 ## 📦 Installation
 
@@ -42,8 +43,7 @@ python main.py
 Once the execution finishes, you will find your transcript text file saved automatically at your configured `SAVE_PATH`.
 
 ## 📅 Roadmap (Upcoming Features)
-* [ ] **Clipboard Integration:** Option to instantly copy the full consolidated transcript to your clipboard.
-* [ ] **Environment Variables (`.env`):** Move credentials and personal system paths out of the source code to keep local environments 100% private.
+* [ ] **Automatic Timestamping:** Append the current date and time to the filename to avoid overwriting previous transcripts.
 
 ## ⚖️ Disclaimer
 This project was developed strictly for personal educational purposes, study assistance, and accessibility research. It is **not** affiliated with, authorized, or endorsed by Microsoft Corporation. 
