@@ -27,7 +27,6 @@ def wait_for_element(criteria: tuple[str, str], timeout=20):
     return wait.until(EC.element_to_be_clickable(criteria))
 
 wait_for_element((By.CSS_SELECTOR, "div[class='ms-List-cell']"))
-# time.sleep(3)
 
 entries = driver.find_elements(By.XPATH, "//div[starts-with(@id, 'entry-')]")
 entries_dict = {}
@@ -52,14 +51,7 @@ while len(last_entry) == 0 or ( last_entry and len(entries_dict.keys()) < int(la
     except StaleElementReferenceException as e:
         print("error: StaleElementReferenceException")
 
-    # driver.find_element(By.CSS_SELECTOR, "div[id^='listItem-']").send_keys(Keys.PAGE_DOWN)
-
     try:
-        # if len(entries_dict.keys()) < 160:
-        #     driver.execute_script("arguments[0].scrollIntoView({block: 'center'});",
-        #                           driver.find_element(By.ID, f"entry-{list(entries_dict.keys())[-10]}"))
-        #     wait_for_element((By.ID, f"entry-{list(entries_dict.keys())[-10]}"))
-        # else:
         time.sleep(0.2)
         driver.find_element(By.CSS_SELECTOR, "div[id^='listItem-']").send_keys(Keys.PAGE_DOWN)
 
@@ -69,33 +61,20 @@ while len(last_entry) == 0 or ( last_entry and len(entries_dict.keys()) < int(la
         driver.execute_script("arguments[0].scrollIntoView({block: 'center'});",driver.find_element(By.ID, f"entry-{list(entries_dict.keys())[-1]}"))
         wait_for_element((By.ID, f"entry-{list(entries_dict.keys())[-1]}"))
 
-    # wait_for_element((By.ID, f"{entries[-1].get_attribute("id")}"))
     entries: list[WebElement] = driver.find_elements(By.XPATH, "//div[starts-with(@id, 'entry-')]")
     print(f"current_n_of_entries: {len(entries_dict)}", entries[-1].get_attribute("id"))
-    # time.sleep(1)
-
-# unique_entries = list({item["id"]: item for item in entries_list}.values())
+    
 unique_entries = entries_dict.values()
-
-# transcript_dict = {
-#     entry: {
-#         "speaker": entry.get_attribute("aria-label"),
-#         "text": entry.find_element(By.CSS_SELECTOR, "div[id^='sub-entry-']")
-#     }
-#     for entry in entries
-# }
 
 transcript_string = ""
 previous_speaker = ""
 for entry in unique_entries:
-    # print(entry['id'])
     if previous_speaker != entry['speaker']:
         transcript_string += "\n" + entry['speaker'] + "\n"
     transcript_string += entry['text']
 transcript_string = transcript_string.strip()
 
 pyclip.copy(transcript_string)
-# print(transcript_string)
 
 with open(SAVE_PATH, "w", encoding="utf-8") as file:
     file.write(transcript_string)
